@@ -1,0 +1,1 @@
+Generic-Feature Extraction方向，我推荐VSRN和GPO，分别从图结构和最优融合策略来做的。其次，是PVSE，SAEM，DSRAN，SCO，具体内容请看论文。

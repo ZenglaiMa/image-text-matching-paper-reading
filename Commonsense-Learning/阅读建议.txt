@@ -1,0 +1,1 @@
+Commonsense Learning方向，我推荐SCG和CVSE，二者都利用cocurrence来进行常识引入。
