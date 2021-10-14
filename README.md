@@ -1,5 +1,4 @@
 # Paper Summary
----
 - ### (*ECCV2018_SCAN*) Stacked Cross Attention for Image-Text Matching. [[paper](https://openaccess.thecvf.com/content_ECCV_2018/papers/Kuang-Huei_Lee_Stacked_Cross_Attention_ECCV_2018_paper.pdf)] [[code](https://github.com/kuanghuei/SCAN)]
     - #### 思路
         首先对图片中的区域(regions)和句子中的单词(words)进行编码并将它们映射到相同的嵌入空间(embedding space)，然后通过
@@ -10,5 +9,5 @@
         重要性。
     - #### Stacked Cross Attention
         本文给出了两种SCA范式：Image-Text SCA 和 Text-Image SCA，此处主要介绍 Image-Text Stacked Cross Attention.
-        ![框架图]()
+        ![框架图](https://github.com/ZenglaiMa/cross-modal-retrieval-learning/blob/main/images/Cross-Modal-Interaction/SCAN/1.png)
 ---
