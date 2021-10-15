@@ -7,7 +7,7 @@
         先前的工作大多是先求出图片中的每个region和句子中的每个word的相似度，然后将结果聚合起来作为图片和句子的相似度，但不同的区域或单词的重要程度是不一样的。本文最大的创新/贡献就是引入了Stacked Cross Attention机制，使用regions和words互为上下文进行attention操作，来考虑不同区域或单词的重要程度。  
     - ### Stacked Cross Attention  
         本文给出了两种SCA范式：Image-Text SCA 和 Text-Image SCA，此处主要介绍 Image-Text SCA.  
-        SCAN有两个输入：图片特征V={v<sub>1</sub>, ..., v<sub>k</sub>}和单词特征E={e<sub>1</sub>, ..., e<sub>n</sub>}，其中v<sub>i</sub>表示图片第i个region的特征，e<sub>j</sub>表示句子第j个单词的特征，v<sub>i</sub>和e<sub>j</sub>维度相同。  
+        SCAN有两个输入：图片特征V={v<sub>1</sub>, ..., v<sub>k</sub>}和句子特征E={e<sub>1</sub>, ..., e<sub>n</sub>}，其中v<sub>i</sub>表示图片第i个region的特征，e<sub>j</sub>表示句子第j个单词的特征，v<sub>i</sub>和e<sub>j</sub>维度相同。  
         - #### Image-Text Stacked Cross Attention  
             ![](./images/Cross-Modal-Interaction/SCAN/1.png)  
             - ##### 第一阶段：以图像区域作为上下文来attend句子中的单词  
