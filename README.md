@@ -34,6 +34,7 @@
         使用 triplet loss 作为总的损失函数来训练模型：  
         ![triplet-loss](./images/Cross-Modal-Interaction/SCAN/9.png)  
         负样本的选取方式如下：  
-        ![](./images/Cross-Modal-Interaction/SCAN/10.png) ![](./images/Cross-Modal-Interaction/SCAN/11.png)  
+        ![](./images/Cross-Modal-Interaction/SCAN/10.png) &nbsp; ![](./images/Cross-Modal-Interaction/SCAN/11.png)  
         即选取除了本身anchor之外相似度最高的图文作为负样本。  
 
+- ## The Next Paper is Coming...  
