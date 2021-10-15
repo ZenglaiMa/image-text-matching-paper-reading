@@ -31,7 +31,7 @@
             ![](./images/Cross-Modal-Interaction/SCAN/12.png)  
             与第一种范式类似，不再赘述。  
     - ### Alignment Objective  
-        使用 triplet loss 作为总的损失函数来训练模型：  
+        使用[triplet loss](https://www.bilibili.com/video/BV1SW411G7Yg?p=39)作为总的损失函数来训练模型：  
         ![triplet-loss](./images/Cross-Modal-Interaction/SCAN/9.png)  
         负样本的选取方式如下：  
         ![](./images/Cross-Modal-Interaction/SCAN/10.png) &nbsp; ![](./images/Cross-Modal-Interaction/SCAN/11.png)  
