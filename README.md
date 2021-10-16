@@ -36,5 +36,21 @@
         负样本的选取方式如下：  
         ![](./images/Cross-Modal-Interaction/SCAN/10.png) &nbsp; ![](./images/Cross-Modal-Interaction/SCAN/11.png)  
         即选取除了当前正例之外相似度最高的图或文作为负样本。  
+    - ### 特征提取  
+        图片特征：Faster R-CNN + ResNet-101  
+        文本特征：bidirectional GRU  
 
-- ## The Next Paper is Coming...  
+- ## (*ACMMM2019_BFAN*) Focus Your Attention: A Bidirectional Focal Attention Network for Image-Text Matching. [[paper](https://arxiv.org/pdf/1909.11416.pdf)] [[code](https://github.com/CrossmodalGroup/BFAN)]  
+    - ### 创新点  
+        之前的工作中都是计算每个region-word的注意力分数，但忽略了实际上存在着许多语义不相关的region-word这一事实(比如图片有一个region是一个狗头，它和单词cat就是不相关的)。而在之前的方法中，语义不相关的region-word也会有一个注意力得分，虽然它得到的注意力很少，但或多或少都会影响最终结果，造成语义不对等现象。为了解决这个问题，本文提出了BFAN，排除语义不相关的region-word的注意力，把所有的注意力全部都转移到语义相关的region-word上。  
+        ![](./images/Cross-Modal-Interaction/BFAN/1.png)  
+    - ### Bidirectional Focal Atention Network  
+        ![](./images/Cross-Modal-Interaction/BFAN/2.png)  
+        - #### Text-to-Image Focal Attention  
+            1. 预分配注意力：对于句子中的一个单词，去计算图片中的每一个区域和该单词的相似度，并基于此得到每个区域的注意力分数；  
+            2. 根据图片的每个区域得到的注意力分数，决定排除哪些区域(被排除的区域被认为和该单词语义不相关)；  
+            3. 重新分配注意力：对留下的区域(被认为和该单词语义相关)重新分配注意力。  
+        - #### Image-to-Text Focal Attention  
+            与前者类似，不再赘述。  
+
+- ## The Next Paper...  
