@@ -1,1 +1,2 @@
 Cross-Modal Interaction是很重要的方向，我推荐SCAN（1）最经典也是最基础的，启发了BFAN，PFAN，CAMP，DP-RNN，IMRAM等local-local（2）的交互问题。global-local（3）的交互可查看SAN，ADAPT。多层次交互（4）可查看SHAN，DIME，MMCA。其他CAAN跨模态交互服务于单模态特征融合（5）。
+MTFN
