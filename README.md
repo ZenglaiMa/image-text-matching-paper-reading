@@ -79,7 +79,7 @@
         多阶段训练：第一阶段训练Multi-attention Cross Matching部分；第二阶段将Recurrent Visual Embedding加到网络中，训练这一部分，而第一阶段训练好的参数不动；第三阶段训练整个网络，更新所有参数。  
 
 - ## (*CVPR2020_IMRAM*) IMRAM: Iterative Matching with Recurrent Attention Memory for Cross-Modal Image-Text Retrieval. [[paper](https://openaccess.thecvf.com/content_CVPR_2020/papers/Chen_IMRAM_Iterative_Matching_With_Recurrent_Attention_Memory_for_Cross-Modal_Image-Text_CVPR_2020_paper.pdf)] [[code](https://github.com/HuiChen24/IMRAM)]  
-    *这篇论文在跨模态图文检索中性能比较靠前*
+    *这篇论文在跨模态图文检索中性能比较靠前*  
     ![](./images/Cross-Modal-Interaction/IMRAM/1.png)  
     - ### Motivation  
         图文之间的语义关系通常是很复杂的，仅通过一轮匹配来对齐图文间的语义关系是不够的。基于以上想法，本文提出了IMRAM，通过迭代多次匹配来对齐图文间的语义(个人理解迭代是一个从粗粒度到细粒度、从低层语义到高层语义的过程)。  
@@ -87,4 +87,14 @@
         改进的重点是在SCAN的基础上加了一个Memory Distillation Unit(MDU)，用来在每一次对齐后对query feature X进行更新优化以使得在下一次对齐过程中得到更好的结果，详见论文。  
         ![](./images/Cross-Modal-Interaction/IMRAM/2.png)  
 
-- ## Next Paper...
+- ## (*IJCAI2021_SHAN*) Step-Wise Hierarchical Alignment Network for Image-Text Matching. [[paper](https://arxiv.org/pdf/2106.06509.pdf)]  
+    - ### Motivation  
+        仅进行local-to-local(即regions和words)层次的交互，可能会丢失一些上下文的语义信息，如下图。为解决上述问题，本文提出SHAN来进行图文之间的多层次交互：local-to-local -> global-to-local -> global-to-global.  
+        ![](./images/Cross-Modal-Interaction/SHAN/1.png)  
+    - ### Method  
+        ![](./images/Cross-Modal-Interaction/SHAN/2.png)  
+        1. Fragment-level L2L Alignment  
+        2. Context-level G2L Alignment  
+        3. Context-level G2G Alignment  
+
+- ## Continuous Updating...  
