@@ -97,4 +97,10 @@
         2. Context-level G2L Alignment  
         3. Context-level G2G Alignment  
 
+- ## (*CVPR2020_MMCA*) Multi-Modality Cross Attention Network for Image and Sentence Matching. [[paper](https://openaccess.thecvf.com/content_CVPR_2020/papers/Wei_Multi-Modality_Cross_Attention_Network_for_Image_and_Sentence_Matching_CVPR_2020_paper.pdf)]  
+    ![](./images/Cross-Modal-Interaction/MMCA/1.png)  
+    **Self-Attention Modules**：提取图片和文本各自的全局语义信息，然后做global-to-global的匹配；  
+    **Cross-Attention Module**：图片的regions和文本的words之间进行交互，做local-to-local的匹配。  
+    **图文相似度分数计算方式**： S(I, T) = i<sub>0</sub> · c<sub>0</sub> + α (i<sub>1</sub> · c<sub>1</sub>)，α 用来权衡两种注意力机制的影响。
+
 - ## Continuous Updating...  
