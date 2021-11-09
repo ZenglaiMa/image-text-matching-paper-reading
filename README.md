@@ -100,7 +100,7 @@
 - ## (*CVPR2020_MMCA*) Multi-Modality Cross Attention Network for Image and Sentence Matching. [[paper](https://openaccess.thecvf.com/content_CVPR_2020/papers/Wei_Multi-Modality_Cross_Attention_Network_for_Image_and_Sentence_Matching_CVPR_2020_paper.pdf)]  
     ![](./images/Cross-Modal-Interaction/MMCA/1.png)  
     **Self-Attention Modules**：单模态内部进行交互，建模各部分之间的关联，以此获得更好的单模态表征，用于global-to-global级别的匹配；  
-    **Cross-Attention Module**：跨模态交互，图片的regions和文本的words之间进行交互，用于local-to-local级别的匹配。  
+    **Cross-Attention Module**：跨模态交互/对齐，图片的regions和文本的words之间进行交互/对齐，用于local-to-local级别的匹配。  
     **图文相似度分数计算方式**： S(I, T) = i<sub>0</sub> · c<sub>0</sub> + α (i<sub>1</sub> · c<sub>1</sub>)，α 用来权衡两种注意力机制的影响。  
 
 - ## (*SIGIR2021_DIME*) Dynamic Modality Interaction Modeling for Image-Text Retrieval. [[code](https://github.com/LgQu/DIME)]  
