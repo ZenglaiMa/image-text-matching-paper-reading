@@ -103,6 +103,9 @@
     **Cross-Attention Module**：跨模态交互/对齐，图片的regions和文本的words之间进行交互/对齐，用于local-to-local级别的匹配。  
     **图文相似度分数计算方式**： S(I, T) = i<sub>0</sub> · c<sub>0</sub> + α (i<sub>1</sub> · c<sub>1</sub>)，α 用来权衡两种注意力机制的影响。  
 
+- ## (*CVPR2020_CAAN*) Context-Aware Attention Network for Image-Text Retrieval. [[paper](https://openaccess.thecvf.com/content_CVPR_2020/papers/Zhang_Context-Aware_Attention_Network_for_Image-Text_Retrieval_CVPR_2020_paper.pdf)]  
+    本篇论文通过一大堆的矩阵运算将模态间注意力(inter-modal attention)和模态内注意力(intra-modal attention)结合在一起来进行图文匹配，并且它提出了一个semantics-based attention(SA)机制来进行intra-modal attention，SA提供了一种新思路就是**将跨模态交互服务于单模态内的特征融合**。[知乎](https://zhuanlan.zhihu.com/p/376541921)有一篇解读本论文的文章。  
+
 - ## (*SIGIR2021_DIME*) Dynamic Modality Interaction Modeling for Image-Text Retrieval. [[code](https://github.com/LgQu/DIME)]  
     SIGIR'21的Best Student Paper，论文暂时无法免费获取，知乎有几篇关于该论文的介绍：[1](https://zhuanlan.zhihu.com/p/402122260)、[2](https://zhuanlan.zhihu.com/p/395591953)、[3](https://zhuanlan.zhihu.com/p/405877757)。  
 
