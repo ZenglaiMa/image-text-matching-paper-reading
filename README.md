@@ -109,4 +109,19 @@
 - ## (*SIGIR2021_DIME*) Dynamic Modality Interaction Modeling for Image-Text Retrieval. [[code](https://github.com/LgQu/DIME)]  
     SIGIR'21的Best Student Paper，论文暂时无法免费获取，知乎有几篇关于该论文的介绍：[1](https://zhuanlan.zhihu.com/p/402122260)、[2](https://zhuanlan.zhihu.com/p/395591953)、[3](https://zhuanlan.zhihu.com/p/405877757)。  
 
+- ## (*ICCV2019_VSRN*) Visual Semantic Reasoning for Image-Text Matching. [[paper](https://arxiv.org/pdf/1909.02701.pdf)] [[code](https://github.com/KunpengLi1994/VSRN)]  
+    ![](./images/Cross-Modal-Interaction/VSRN/1.png)  
+    - ### For the image part  
+        - Image Representation by Bottom-Up Attention(as same as SCAN). -> V={v<sub>1</sub>, ..., v<sub>k</sub>}.  
+        - Region Relationship Reasoning with GCN.  
+            ![](./images/Cross-Modal-Interaction/VSRN/2.png)  
+            ![](./images/Cross-Modal-Interaction/VSRN/3.png)  
+        - Global Semantic Reasoning with GRU, the GRU's last memory cell as the final representation of the image.  
+    - ### For the text caption part  
+        - Learn a representation for the sentence using RNNs.  
+    - ### Learning Alignments by Joint Matching and Generation  
+        ![](./images/Cross-Modal-Interaction/VSRN/4.png)  
+        ![](./images/Cross-Modal-Interaction/VSRN/5.png)  
+        ![](./images/Cross-Modal-Interaction/VSRN/6.png)  
+
 - ## Continuous Updating...  
