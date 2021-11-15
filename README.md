@@ -115,6 +115,7 @@
         - Image Representation by Bottom-Up Attention(as same as SCAN). -> V={v<sub>1</sub>, ..., v<sub>k</sub>}.  
         - Region Relationship Reasoning with GCN.  
             ![](./images/Cross-Modal-Interaction/VSRN/2.png)  
+            ![](./images/Cross-Modal-Interaction/VSRN/7.png)  
             ![](./images/Cross-Modal-Interaction/VSRN/3.png)  
         - Global Semantic Reasoning with GRU, the GRU's last memory cell as the final representation of the image.  
     - ### For the text caption part  
