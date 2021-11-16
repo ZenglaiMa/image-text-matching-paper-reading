@@ -139,14 +139,15 @@
     θ<sub>1</sub>, ..., θ<sub>k</sub>确定后，就得到了最终的Pooled Feature.  
     在训练过程中，本文还提出了一个Size Augmentation：随机drop掉20%的input vectors来混淆input set的长度，以更好地适用于可变输入。  
 
+- ## (*ACMMM2019_MTFN*) Matching Images and Text with Multi-modal Tensor Fusion and Re-ranking. [[paper](https://arxiv.org/pdf/1908.04011.pdf)] [[code](https://github.com/Wangt-CN/MTFN-RR-PyTorch-Code)]  
+
+
 - ## (*CVPR2019_RAMEN*) Answer Them All! Toward Universal Visual Question Answering Models. [[paper](https://arxiv.org/pdf/1903.00366.pdf)] [[code](https://github.com/erobic/ramen)]  
-    *这篇文章是做 VQA 的，但本文中提到的**特征早融合(early fusion)方式**可以对 image-text matching 起到一些启发作用。*  
+    *这篇文章是做 VQA 的，但本文中提到的**特征早融合(early fusion)方式**或许可以对 image-text matching 起到一点启发作用。*  
     ![](./images/RAMEN/1.png)  
     1. 通过GRU对句子提取特征得到文本特征q，使用BUTD得到图片每个region的特征region<sub>i</sub>.  
     2. 特征早融合：将region<sub>i</sub>和q拼接在一起，做BatchNorm后得到c<sub>i</sub>.  
     3. 将c<sub>i</sub>通过残差连接的MLP得到b<sub>i</sub>.  
     4. 将b<sub>i</sub>和q拼接在一起，送入Bi-GRU，将Bi-GRU每个方向的输出拼接起来，后接分类器进行分类.  
-
-- ## (*ACMMM2019_MTFN*) Matching Images and Text with Multi-modal Tensor Fusion and Re-ranking. [[paper](https://arxiv.org/pdf/1908.04011.pdf)] [[code](https://github.com/Wangt-CN/MTFN-RR-PyTorch-Code)]  
 
 - ## Continuous Updating...  
