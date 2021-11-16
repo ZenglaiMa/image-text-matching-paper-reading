@@ -126,7 +126,16 @@
         ![](./images/VSRN/6.png)  
 
 - ## (*CVPR2021_GPO*) Learning the Best Pooling Strategy for Visual Semantic Embedding. [[paper](https://arxiv.org/pdf/2011.04305.pdf)] [[code](https://github.com/woodfrog/vse_infty)]  
-    ![](./images/GPO/1.png)
-    Visual Semantic Embedding(VSE)是跨模态检索中的常用方法，它旨在学习一个embedding space，将图片和文本都映射到这个空间中，希望具有相近语义的图片和文本距离相近，上图是该方法的一个典型流程：输入图片和文本 -> 用特征提取器提取特征 -> 将提取到的特征聚合起来表示整张图片或整个句子 -> 在embedding space中计算图文相似度。在先前的绝大多数工作中，特征聚合的过程都非常复杂（比如用各种Attention、GCN等），但**本文实验发现，在跨模态检索任务中，使用简单的池化(pooling)策略进行特征聚合，性能可以超越大多数花里胡哨的复杂模型**。现在问题就变成了如何自动地学习最优的池化策略，这就是这篇论文要解决的问题。
+    ![](./images/GPO/1.png)  
+    Visual Semantic Embedding(VSE)是跨模态检索中的常用方法，它旨在学习一个embedding space，将图片和文本都映射到这个空间中，希望具有相近语义的图片和文本在该空间中距离相近，上图是该方法的一个典型流程：输入图片和文本 -> 用特征提取器提取特征 -> 将提取到的特征聚合起来表示整张图片或整个句子 -> 在embedding space中计算图文相似度 -> 使用triplet loss更新模型。在先前的绝大多数工作中，特征聚合的过程都非常复杂（比如用各种Attention、GCN等），但**本文实验发现，在跨模态检索任务中，使用简单的池化(pooling)策略进行特征聚合，性能可以超越大多数花里胡哨的复杂模型**。现在问题就变成了如何自动地学习最优的池化策略，这就是本篇论文要解决的问题。  
+    ![](./images/GPO/3.jpg)  
+    **如果θ可以取任意值，那么是不是就可以说明模型能够捕获一些我们未知但更适用于某特定任务的池化策略呢？这就是GPO的思想，即自动地去学习这些θ。**  
+    ![](./images/GPO/2.png)  
+    上图中φ<sub>1</sub>, ..., φ<sub>N</sub>代表多个local表示（图片中就是region，文本中就是token）。考虑到对于文本来说每次输入都是不同长度的，所以要解决输入长度不固定的问题，基于此，本文作者使用了Bi-GRU去生成θ<sub>1</sub>, ..., θ<sub>k</sub>各个系数。Bi-GRU的输入采用和Transformer中一样的位置编码，如下：  
+    ![](./images/GPO/5.png)  
+    Bi-GRU的每个状态的输出接一个MLP，得到的就是对应位置的系数，如下：  
+    ![](./images/GPO/4.png)  
+    θ<sub>1</sub>, ..., θ<sub>k</sub>确定后，就得到了最终的Pooled Feature.  
+    在训练过程中，本文还提出了一个Size Augmentation：随机drop掉20%的input vectors来混淆input set的长度，以更好地适用于可变输入。  
 
 - ## Continuous Updating...  
