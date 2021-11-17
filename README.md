@@ -140,10 +140,18 @@
     在训练过程中，本文还提出了一个Size Augmentation：随机drop掉20%的input vectors来混淆input set的长度，以更好地适用于可变输入。  
 
 - ## (*ACMMM2019_MTFN*) Matching Images and Text with Multi-modal Tensor Fusion and Re-ranking. [[paper](https://arxiv.org/pdf/1908.04011.pdf)] [[code](https://github.com/Wangt-CN/MTFN-RR-PyTorch-Code)]  
-
+    ![](./images/MTFN/1.png)  
+    在图文匹配任务中，大致分为两种方法，如上图所示：一是将不同模态的特征映射到一个公共的embedding space中，然后在该空间中计算相似度或距离（常用余弦相似度或点积）；二是将不同模态的特征进行融合，然后将融合后的特征扔到一个神经网络中去做二分类。在本文中，作者结合了上述两种方法：先对不同模态的特征进行融合，然后将融合好的特征扔到神经网络中，让神经网络去学习一个相似度函数，其整体架构如下所示：  
+    ![](./images/MTFN/2.png)  
+    简单理解，本文中通过神经网络学习的相似度函数可以简单认为成下式：  
+    ![](./images/MTFN/3.png)  
+    这其实和点积没有太大的区别，点积是将两个向量对应位置元素相乘，然后相加；而这里是将对应位置元素相乘后，与 W 做积，相当于做加权求和，而当 W 为全 1 矩阵时，这里的这个方式也就退化成了点积。现在就有了两个问题：  
+    **1. 一定可以学到比全 1 矩阵更好的 W 吗？**  
+    **2. 因为 W 是学习出来的，我们学习好模型后 W 便不再变化，也就是说在 inference 时，对于任意一对图文特征的element-wise product，其中每个元素获得的权重都是相同的，这显然是不合理的。**  
 
 - ## (*CVPR2019_RAMEN*) Answer Them All! Toward Universal Visual Question Answering Models. [[paper](https://arxiv.org/pdf/1903.00366.pdf)] [[code](https://github.com/erobic/ramen)]  
-    *这篇文章是做 VQA 的，但文中提到的**特征早融合(early fusion)方式**或许能对 image-text matching 提供一点启发。*[借 VQA 来聊聊 Image-text matching](https://zhuanlan.zhihu.com/p/100575464).  
+    *这篇文章是做 VQA 的，但文中提到的**特征早融合(early fusion)方式**或许能对 image-text matching 提供一点启发。*  
+    [借 VQA 来聊聊 Image-text matching - 知乎](https://zhuanlan.zhihu.com/p/100575464).  
     ![](./images/RAMEN/1.png)  
     1. 通过GRU对句子提取特征得到文本特征q，使用BUTD得到图片每个region的特征region<sub>i</sub>.  
     2. 特征早融合：将region<sub>i</sub>和q拼接在一起，做BatchNorm后得到c<sub>i</sub>.  
