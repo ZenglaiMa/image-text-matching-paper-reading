@@ -143,7 +143,7 @@
 
 
 - ## (*CVPR2019_RAMEN*) Answer Them All! Toward Universal Visual Question Answering Models. [[paper](https://arxiv.org/pdf/1903.00366.pdf)] [[code](https://github.com/erobic/ramen)]  
-    *这篇文章是做 VQA 的，但本文中提到的**特征早融合(early fusion)方式**或许可以对 image-text matching 起到一点启发作用。*  
+    *这篇文章是做 VQA 的，但文中提到的**特征早融合(early fusion)方式**或许能对 image-text matching 提供一点启发。*[借 VQA 来聊聊 Image-text matching](https://zhuanlan.zhihu.com/p/100575464).  
     ![](./images/RAMEN/1.png)  
     1. 通过GRU对句子提取特征得到文本特征q，使用BUTD得到图片每个region的特征region<sub>i</sub>.  
     2. 特征早融合：将region<sub>i</sub>和q拼接在一起，做BatchNorm后得到c<sub>i</sub>.  
