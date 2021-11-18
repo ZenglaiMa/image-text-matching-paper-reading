@@ -138,6 +138,8 @@
     ![](./images/GPO/4.png)  
     θ<sub>1</sub>, ..., θ<sub>k</sub>确定后，就得到了最终的Pooled Feature.  
     在训练过程中，本文还提出了一个Size Augmentation：随机drop掉20%的input vectors来混淆input set的长度，以更好地适用于可变输入。  
+    <br/>  
+    > **从实验结果来看，给人感觉就是，文中着重突出的GPO可能有用，但是对于结果提升帮助最大的似乎是将BUTD region features换成了WSL grid features.**  
 
 - ## (*ACMMM2019_MTFN*) Matching Images and Text with Multi-modal Tensor Fusion and Re-ranking. [[paper](https://arxiv.org/pdf/1908.04011.pdf)] [[code](https://github.com/Wangt-CN/MTFN-RR-PyTorch-Code)]  
     ![](./images/MTFN/1.png)  
