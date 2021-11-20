@@ -160,4 +160,13 @@
     3. 将c<sub>i</sub>通过残差连接的MLP得到b<sub>i</sub>.  
     4. 将b<sub>i</sub>和q拼接在一起，送入Bi-GRU，将Bi-GRU每个方向的输出拼接起来，后接分类器进行分类.  
 
+- ## (*ACMMM2019_SAEM*) Learning Fragment Self-Atention Embeddings for Image-Text Matching. [[paper](https://vipl.ict.ac.cn/uploadfile/upload/2019112611434332.pdf)] [[code](https://github.com/yiling2018/saem)]  
+    *CVPR2020的那篇MMCA就是在该论文的基础上加上了一个 Cross-Attention Module.*  
+    ![](./images/SAEM/1.png)  
+    需要注意的是，该模型最后的损失函数是 triplet loss + angular loss，详见论文。  
+
+- ## (*TCSVT2020_DSRAN*) Learning Dual Semantic Relations with Graph Attention for Image-Text Matching. [[paper](https://arxiv.org/pdf/2010.11550.pdf)] [[code](https://github.com/kywen1119/DSRAN)]  
+
+- ## (*CVPR2018_SCO*) Learning Semantic Concepts and Order for Image and Sentence Matching. [[paper](https://arxiv.org/pdf/1712.02036.pdf)]  
+
 - ## Continuous Updating...  
