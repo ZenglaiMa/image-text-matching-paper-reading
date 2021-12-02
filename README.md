@@ -164,4 +164,7 @@
     ![](./images/SAEM/1.png)  
     需要注意的是，该模型最后的损失函数是 triplet loss + angular loss，详见论文。  
 
+- ## (*CVPR2018_SCO*) Learning Semantic Concepts and Order for Image and Sentence Matching. [[paper](https://arxiv.org/pdf/1712.02036.pdf)]  
+    
+
 - ## Continuous Updating...  
