@@ -193,4 +193,5 @@
             ![](./images/SGRAF/10.png)  
         - 文中提出，SGR 和 SAF 分开训练效果更好。  
 
-- ## Continuous Updating...  
+- ## (*CVPR2020_GSMN*) Graph Structured Network for Image-Text Matching. [[paper](https://arxiv.org/pdf/2004.00277.pdf)] [[paper](https://github.com/CrossmodalGroup/GSMN)]  
+    
