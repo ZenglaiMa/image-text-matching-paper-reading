@@ -164,4 +164,33 @@
     ![](./images/SAEM/1.png)  
     需要注意的是，该模型最后的损失函数是 triplet loss + angular loss，详见论文。  
 
+- ## (*AAAI2021_SGRAF*) Similarity Reasoning and Filtration for Image-Text Matching. [[paper](https://arxiv.org/pdf/2101.01368.pdf)] [[code](https://github.com/Paranioar/SGRAF)]  
+    - ### Motivation  
+        - 以往的工作在计算两个向量的相似度时一般使用的是余弦相似度，所得结果是一个数值标量。然而相似性可以体现在多个方面，只用一个标量似乎不足以表示复杂的相似关系，因此，本文用向量代替标量来表示相似度。（**我认为这是该工作最重要的改进**）  
+        - 常见的检索方法（如 SCAN）在整合局部的 region-word 相似度时，通常使用 Max pooling 或 Average Pooling 方法得到最后的相似度，并没有考虑不同相似度之间的关系，因此，本文利用上一步得到的相似度向量，使用图建模相似度之间的关系，得到最终的相似度表示。  
+        - 文本中存在的无意义单词会对相似度计算产生干扰，例如在使用 Average Pooling 得到相似度的时候，如果无意义的单词多，就会缩小匹配和不匹配相似性之间的差距，因此，本文会对每个相似度向量进行打分，减少无意义单词的影响。  
+    - ### 模型架构  
+        ![](./images/SGRAF/1.png)  
+    - ### Method  
+        - 输入  
+            - Image: BUTD features, 通过 self-attention 做 Average Pooling 得到全局表示。  
+            - Text: BiGRU 得到每个单词的特征，与上述方法一样得到全局表示。  
+        - 相似度向量的计算方法（**我认为本文最重要的所在**）  
+            ![](./images/SGRAF/2.png)  
+        - global 相似度  
+            ![](./images/SGRAF/3.png)  
+        - local 相似度（除了相似度的计算方法不同之外，其他和 SCAN 一样，这里用的是对于一个 word 去 attend regions）  
+            ![](./images/SGRAF/4.png)  
+            ![](./images/SGRAF/5.png)  
+            ![](./images/SGRAF/6.png)  
+            ![](./images/SGRAF/7.png)  
+        - 构图：相似度向量为图的结点，边通过如下表示：  
+            ![](./images/SGRAF/8.png)  
+        - 图的更新过程如下：  
+            ![](./images/SGRAF/9.png)  
+        - 将最后一步的表示全局相似度的向量过一个FC层得到最终的相似度。  
+        - 文本中每个单词的贡献是不一样的，文章中给无意义的单词分配了较低的权重，然后将权重如对应的相似度向量加权求和，再过FC层就得到SAF这一路的最终相似度，权重计算方式如下：  
+            ![](./images/SGRAF/10.png)  
+        - 文中提出，SGR 和 SAF 分开训练效果更好。  
+
 - ## Continuous Updating...  
