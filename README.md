@@ -192,6 +192,8 @@
         - 文本中每个单词的贡献是不一样的，文章中给无意义的单词分配了较低的权重，然后将权重如对应的相似度向量加权求和，再过FC层就得到SAF这一路的最终相似度，权重计算方式如下：  
             ![](./images/SGRAF/10.png)  
         - 文中提出，SGR 和 SAF 分开训练效果更好。  
+    - ### 一句话总结  
+        用向量代替标量来表示相似度，然后图推相似度向量间的关系。  
 
-- ## (*CVPR2020_GSMN*) Graph Structured Network for Image-Text Matching. [[paper](https://arxiv.org/pdf/2004.00277.pdf)] [[paper](https://github.com/CrossmodalGroup/GSMN)]  
-    
+- ## (*CVPR2020_GSMN*) Graph Structured Network for Image-Text Matching. [[paper](https://arxiv.org/pdf/2004.00277.pdf)] [[code](https://github.com/CrossmodalGroup/GSMN)]  
+    没读懂…  
