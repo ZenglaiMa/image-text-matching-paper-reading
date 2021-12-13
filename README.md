@@ -197,3 +197,12 @@
 
 - ## (*CVPR2020_GSMN*) Graph Structured Network for Image-Text Matching. [[paper](https://arxiv.org/pdf/2004.00277.pdf)] [[code](https://github.com/CrossmodalGroup/GSMN)]  
     没读懂…  
+
+- ## (*ACMMM2019*) Cross-Modal Image-Text Retrieval with Semantic Consistency. [[paper](https://sci-hub.ru/https://dl.acm.org/doi/abs/10.1145/3343031.3351055)] [[code](https://github.com/HuiChen24/MM_SemanticConsistency)]  
+    ![](./images/other/1.png)  
+    这篇文章唯一做的就是在 SCAN 的 loss 上加了一项，如下：  
+    ![](./images/other/2.png)  
+    ![](./images/other/3.png)  
+    ![](./images/other/4.png)  
+    其中，δ(·)可以用多种形式定义，比如KL散度、均方误差等，本文中采用的是简单的均方误差(MSE)。  
+    这样做的意义就是说，在 SCAN 中，i2t 和 t2i 两种方式最终得到的相似度分数应该相差不多，本文中称其为语义一致性，这就是本篇论文的核心思想。  
