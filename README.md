@@ -206,3 +206,31 @@
     ![](./images/other/4.png)  
     其中，δ(·)可以用多种形式定义，比如KL散度、均方误差等，本文中采用的是简单的均方误差(MSE)。  
     这样做的意义就是说，在 SCAN 中，i2t 和 t2i 两种方式最终得到的相似度分数应该相差不多，本文中称其为语义一致性，这就是本篇论文的核心思想。  
+
+- ## (*EMNLP2019_LXMERT*) LXMERT: Learning Cross-Modality Encoder Representations from Transformers. [[paper](https://arxiv.org/pdf/1908.07490.pdf)] [[code](https://github.com/airsplay/lxmert)]  
+    - ### 模型结构  
+        模型整体采用双流 Transformer 架构。  
+        ![](./images/LXMERT/1.png)  
+        - #### Input Embeddings  
+            - ##### Word-Level Sentence Embedding  
+                ![](./images/LXMERT/2.png)  
+            - ##### Object-Level Image Embedding  
+                ![](./images/LXMERT/3.png)  
+        - #### Encoders  
+            - ##### Object-Relationship Encoder  
+            - ##### Language Encoder  
+            - ##### Cross-Modality Encoder  
+                ![](./images/LXMERT/4.png)  
+    - ### 预训练任务  
+        为了使模型能够将视觉概念和语言语义关联起来，作者设置了掩码语言建模、掩码目标预测、跨模态匹配、图像问答等预训练任务，在大量“图像句子对”数据集上对模型进行了预训练。  
+        ![](./images/LXMERT/5.png)  
+        - #### Masked Cross-Modality Language Model  
+            此处的设置与 BERT 中的 MLM 基本相同，但 LEXMERT 不仅可以从文本中推断被遮蔽的单词，它还可以通过视觉信息中选择相应的信息来辅助寻找被遮蔽的单词。  
+        - #### Masked Object Prediction  
+            首先以 0.15 的概率对图片中的 object 进行随机 mask，被 mask 掉的 object 的 feature 置为全 0，模型通过视觉信息和语言信息结合来推断出 masked object 的 feature 和 label。  
+            该任务分为以下两个子任务：  
+            - RoI Feature Regression：使用均方损失来预测被 mask 掉的 object 的 RoI Feature，这个过程不需要语言信息的帮助，可以使模型学习到 object 之间的关系；  
+            - Detected Label Classification，结合了视觉信息和语言信息进行联合预测，所有 object 的标签都是由 Faster RCNN 给出的。  
+        - #### Cross-Modality Matching  
+            以 0.5 的概率将正常图文对中的句子换掉，分类器需要判断图文是否匹配。  
+        - #### Image Question Answering  
