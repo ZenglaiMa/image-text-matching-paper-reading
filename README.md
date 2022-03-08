@@ -234,3 +234,22 @@
         - #### Cross-Modality Matching  
             以 0.5 的概率将正常图文对中的句子换掉，分类器需要判断图文是否匹配。  
         - #### Image Question Answering  
+
+- ## (*NIPS2019_ViLBERT*) ViLBERT: Pretraining Task-Agnostic Visiolinguistic Representations for Vision-and-Language Tasks. [[paper](https://arxiv.org/pdf/1908.02265.pdf)] [[code](https://github.com/jiasenlu/vilbert_beta)]  
+    - ### 模型结构  
+        模型整体采用双流 BERT (Transformer) 架构。  
+        ![](./images/ViLBERT/1.png)  
+        - #### Co-TRM 之前的部分  
+            1. 文本端就是一个 BERT<sub>BASE</sub> (文中也提到使用 BERT<sub>LARGE</sub> 可能效果会更好)；  
+            2. 图像端使用预训练好的 Faster-RCNN 提取图片的 region features, 每个 region feature 与其位置编码(5维：左上、右下坐标以及region的覆盖占比，映射到与 region feature 相同维度)相加得到最终的区域特征。每个图像序列以 &lt;IMG&gt; 开始，用来作为整个图像的表征(就如同文本序列中的 &lt;CLS&gt;)。  
+        - #### Co-TRM  
+            ![](./images/ViLBERT/2.png)  
+            图像端的 Q 来自图片信息，但 K 和 V 来自文本信息；文本端的 Q 来自文本信息，但 K 和 V 来自图像信息。通过这种方式完成图像和文本之间信息的交互。  
+    - ### 预训练任务  
+        - #### Masked Multi-Modal modelling  
+            ![](./images/ViLBERT/3.png)  
+            1. 文本的 mask 策略与 BERT 一样。  
+            2. 图像的 mask 策略为：mask 掉 15% 的 region inputs, 其中 0.9 的概率直接 mask, 0.1 的概率保持不变。需要注意的是，ViLBERT 并不是还原被 mask 掉的区域特征值，而是预测对应区域的类别分布，ground-true 是由预训练好的目标检测器(文中为 Faster-RCNN)给出的，优化目标是最小化两个分布的 KL 散度。  
+        - #### Multi-Modal Alignment Prediction  
+            ![](./images/ViLBERT/4.png)  
+            即图文匹配任务：将 &lt;IMG&gt; 和 &lt;CLS&gt; 的输出做 element-wise product 得到的结果作为最终的总体表征，然后接一个二分类器判断图文是否匹配即可。  
