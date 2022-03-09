@@ -225,7 +225,7 @@
         为了使模型能够将视觉概念和语言语义关联起来，作者设置了掩码语言建模、掩码目标预测、跨模态匹配、图像问答等预训练任务，在大量“图像句子对”数据集上对模型进行了预训练。  
         ![](./images/LXMERT/5.png)  
         - #### Masked Cross-Modality Language Model  
-            此处的设置与 BERT 中的 MLM 基本相同，但 LEXMERT 不仅可以从文本中推断被遮蔽的单词，它还可以通过视觉信息中选择相应的信息来辅助寻找被遮蔽的单词。  
+            此处的设置与 BERT 中的 MLM 基本相同，但 LEXMERT 不仅可以从文本中推断被遮蔽的单词，它还能在视觉信息中选择相应的信息来辅助寻找被遮蔽的单词。  
         - #### Masked Object Prediction  
             首先以 0.15 的概率对图片中的 object 进行随机 mask，被 mask 掉的 object 的 feature 置为全 0，模型通过视觉信息和语言信息结合来推断出 masked object 的 feature 和 label。  
             该任务分为以下两个子任务：  
@@ -253,3 +253,23 @@
         - #### Multi-Modal Alignment Prediction  
             ![](./images/ViLBERT/4.png)  
             即图文匹配任务：将 &lt;IMG&gt; 和 &lt;CLS&gt; 的输出做 element-wise product 得到的结果作为最终的总体表征，然后接一个二分类器判断图文是否匹配即可。  
+
+- ## (*AAAI2020_Unified-VLP*) Unified Vision-Language Pre-Training for Image Captioning and VQA. [[paper](https://arxiv.org/pdf/1909.11059.pdf)] [[code](https://github.com/LuoweiZhou/VLP)]  
+    - ### 文章创新点  
+        1. 提出了一个统一的 VLP 模型，既可以做 Vision-Language 理解任务(如 VQA)，也可以做生成任务(如 Image Captioning).  
+        2. 统一了 Encoder 和 Decoder.  
+    - ### 模型架构  
+        单流架构，且统一了 Encoder 和 Decoder.  
+        ![](./images/Unified-VLP/1.png)  
+        - #### 模型输入  
+            1. 图片输入如下，其中 R<sub>i</sub> 为使用现成的目标检测器提取到的第 i 个区域的 region feature，C<sub>i</sub> 为第 i 个区域目标的类别分布，G<sub>i</sub> 为第 i 个区域的位置信息(5维：左上和右下坐标以及该区域对于整张图片的覆盖占比)，[·|·] 为拼接操作。**文中提到将区域目标的类别直接合并进最终的区域特征中这一做法要比 ViLBERT 中做 masked region prediction 这个预训练任务效果更好。**  
+            ![](./images/Unified-VLP/2.png)  
+            2. 文本输入和 BERT 输入是一样的。  
+            3. [CLS] 表示视觉信息输入的开始，[SEP] 用以区分视觉输入和语言输入，[STOP] 表示文本输入的结束，[MASK] 表示文本中被 mask 掉的词。  
+    - ### 预训练任务  
+        整体遵循 BERT 中的 Masked Language Model，设计了两个特定的任务：双向掩码 LM和单向掩码 LM，两者的唯一区别在于做 self-attention 时的 mask 方式不同。在预训练过程中，两个目标交替进行，两者所占的比例由超参 λ 和 1-λ 决定。  
+        1. 双向掩码(bidirectional objective)：和 BERT 中一样，使用双向的上下文来预测被 mask 掉的词。  
+        2. 单向掩码(seq2seq objective)：要满足自回归 LM 的条件，只能通过上文来预测被 mask 掉的词。  
+    - ### 如何在下游任务上做微调  
+        1. VQA：将 VQA 视作一个多标签分类 ([多标签分类任务中的损失函数](https://zhuanlan.zhihu.com/p/98322026)) 问题，将 [CLS] 和 [SEP] 最终的输出做 element-wise product，然后接一个 MLP (Linear + ReLU + Linear + Sigmoid) 进行分类即可。  
+        2. Image Captioning：首先将图片、[CLS]、[SEP] 输入模型，然后喂给模型一个 [MASK] 标记即开始生成，用上文来预测 [MASK] 对应的词，重复以上生成过程，直到生成 [STOP] 标记。  
