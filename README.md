@@ -207,6 +207,27 @@
     其中，δ(·)可以用多种形式定义，比如KL散度、均方误差等，本文中采用的是简单的均方误差(MSE)。  
     这样做的意义就是说，在 SCAN 中，i2t 和 t2i 两种方式最终得到的相似度分数应该相差不多，本文中称其为语义一致性，这就是本篇论文的核心思想。  
 
+- ## (*NIPS2019_ViLBERT*) ViLBERT: Pretraining Task-Agnostic Visiolinguistic Representations for Vision-and-Language Tasks. [[paper](https://arxiv.org/pdf/1908.02265.pdf)] [[code](https://github.com/jiasenlu/vilbert_beta)]  
+    - ### 文章创新点  
+        Vision-Language-Pretraining 的开山之作。  
+    - ### 模型结构  
+        模型整体采用双流 BERT (Transformer) 架构。  
+        ![](./images/ViLBERT/1.png)  
+        - #### Co-TRM 之前的部分  
+            1. 文本端就是一个 BERT<sub>BASE</sub> (文中也提到使用 BERT<sub>LARGE</sub> 可能效果会更好)；  
+            2. 图像端使用预训练好的 Faster-RCNN 提取图片的 region features, 每个 region feature 与其位置编码(5维：左上、右下坐标以及region的覆盖占比，映射到与 region feature 相同维度)相加得到最终的区域特征。每个图像序列以 &lt;IMG&gt; 开始，用来作为整个图像的表征(就如同文本序列中的 &lt;CLS&gt;)。  
+        - #### Co-TRM  
+            ![](./images/ViLBERT/2.png)  
+            图像端的 Q 来自图片信息，但 K 和 V 来自文本信息；文本端的 Q 来自文本信息，但 K 和 V 来自图像信息。通过这种方式完成图像和文本之间信息的交互。  
+    - ### 预训练任务  
+        - #### Masked Multi-Modal modelling  
+            ![](./images/ViLBERT/3.png)  
+            1. 文本的 mask 策略与 BERT 一样。  
+            2. 图像的 mask 策略为：mask 掉 15% 的 region inputs, 其中 0.9 的概率直接 mask, 0.1 的概率保持不变。需要注意的是，ViLBERT 并不是还原被 mask 掉的区域特征值，而是预测对应区域的类别分布，ground-true 是由预训练好的目标检测器(文中为 Faster-RCNN)给出的，优化目标是最小化两个分布的 KL 散度。  
+        - #### Multi-Modal Alignment Prediction  
+            ![](./images/ViLBERT/4.png)  
+            即图文匹配任务：将 &lt;IMG&gt; 和 &lt;CLS&gt; 的输出做 element-wise product 得到的结果作为最终的总体表征，然后接一个二分类器判断图文是否匹配即可。  
+
 - ## (*EMNLP2019_LXMERT*) LXMERT: Learning Cross-Modality Encoder Representations from Transformers. [[paper](https://arxiv.org/pdf/1908.07490.pdf)] [[code](https://github.com/airsplay/lxmert)]  
     - ### 模型结构  
         模型整体采用双流 Transformer 架构。  
@@ -235,30 +256,26 @@
             以 0.5 的概率将正常图文对中的句子换掉，分类器需要判断图文是否匹配。  
         - #### Image Question Answering  
 
-- ## (*NIPS2019_ViLBERT*) ViLBERT: Pretraining Task-Agnostic Visiolinguistic Representations for Vision-and-Language Tasks. [[paper](https://arxiv.org/pdf/1908.02265.pdf)] [[code](https://github.com/jiasenlu/vilbert_beta)]  
+- ## (*ACL2020_VisualBERT*) VisualBERT: A Simple and Performant Baseline for Vision and Language. [[paper](https://arxiv.org/pdf/1908.03557.pdf)] [[code](https://github.com/uclanlp/visualbert)]  
+    - ### 文章创新点  
+        上面介绍的 LXMERT 和 ViLBERT 都是双流模型，而本篇的 VisualBERT 便是单流模型的开篇之作。(双流模型可以视为视觉表征和语言表征的后融合，单流模型可以视为视觉表征和语言表征的早融合。)  
     - ### 模型结构  
-        模型整体采用双流 BERT (Transformer) 架构。  
-        ![](./images/ViLBERT/1.png)  
-        - #### Co-TRM 之前的部分  
-            1. 文本端就是一个 BERT<sub>BASE</sub> (文中也提到使用 BERT<sub>LARGE</sub> 可能效果会更好)；  
-            2. 图像端使用预训练好的 Faster-RCNN 提取图片的 region features, 每个 region feature 与其位置编码(5维：左上、右下坐标以及region的覆盖占比，映射到与 region feature 相同维度)相加得到最终的区域特征。每个图像序列以 &lt;IMG&gt; 开始，用来作为整个图像的表征(就如同文本序列中的 &lt;CLS&gt;)。  
-        - #### Co-TRM  
-            ![](./images/ViLBERT/2.png)  
-            图像端的 Q 来自图片信息，但 K 和 V 来自文本信息；文本端的 Q 来自文本信息，但 K 和 V 来自图像信息。通过这种方式完成图像和文本之间信息的交互。  
+        整体模型架构就是一个 EBRT。  
+        ![](./images/VisualBERT/1.png)  
+        - #### 模型输入  
+            1. 文本的输入格式和 BERT 一致。  
+            2. 图像输入：region feature + segment embedding(用于区分输入中的 image 和 text) + position embedding。  
     - ### 预训练任务  
-        - #### Masked Multi-Modal modelling  
-            ![](./images/ViLBERT/3.png)  
-            1. 文本的 mask 策略与 BERT 一样。  
-            2. 图像的 mask 策略为：mask 掉 15% 的 region inputs, 其中 0.9 的概率直接 mask, 0.1 的概率保持不变。需要注意的是，ViLBERT 并不是还原被 mask 掉的区域特征值，而是预测对应区域的类别分布，ground-true 是由预训练好的目标检测器(文中为 Faster-RCNN)给出的，优化目标是最小化两个分布的 KL 散度。  
-        - #### Multi-Modal Alignment Prediction  
-            ![](./images/ViLBERT/4.png)  
-            即图文匹配任务：将 &lt;IMG&gt; 和 &lt;CLS&gt; 的输出做 element-wise product 得到的结果作为最终的总体表征，然后接一个二分类器判断图文是否匹配即可。  
+        1. Masked Language Model：利用上下文信息(既包括视觉信息也包括语言信息)来预测被 mask 掉的词。  
+        2. Sentence-image Prediction：利用 [CLS] 的输出接二分类器判断图文是否匹配。  
+    - ### 微调  
+        [CLS] 的最终输出即为视觉-语言的联合表征，利用它来做下游任务，进行微调。  
 
 - ## (*AAAI2020_Unified-VLP*) Unified Vision-Language Pre-Training for Image Captioning and VQA. [[paper](https://arxiv.org/pdf/1909.11059.pdf)] [[code](https://github.com/LuoweiZhou/VLP)]  
     - ### 文章创新点  
         1. 提出了一个统一的 VLP 模型，既可以做 Vision-Language 理解任务(如 VQA)，也可以做生成任务(如 Image Captioning).  
         2. 统一了 Encoder 和 Decoder.  
-    - ### 模型架构  
+    - ### 模型结构  
         整体架构就是一个类 BERT。  
         ![](./images/Unified-VLP/1.png)  
         - #### 模型输入  
