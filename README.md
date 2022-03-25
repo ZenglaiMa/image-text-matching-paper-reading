@@ -207,3 +207,18 @@
     ![](./images/other/4.png)  
     其中，δ(·)可以用多种形式定义，比如KL散度、均方误差等，本文中采用的是简单的均方误差(MSE)。  
     这样做的意义就是说，在 SCAN 中，i2t 和 t2i 两种方式最终得到的相似度分数应该相差不多，本文中称其为语义一致性，这就是本篇论文的核心思想。  
+
+- ## (*ACMMM2020_CAMERA*) Context-Aware Multi-View Summarization Network for Image-Text Matching. [[paper](https://dl.acm.org/doi/10.1145/3394171.3413961)] [[code](https://github.com/LgQu/CAMERA)]  
+    - ### Motivation  
+        “一千个读者有一千个哈姆雷特”，同样，对于一张图片，也有多种不同角度的描述，如下图所示。因此，仅用一个单一的图片表征很难概括不同角度的图片信息，从而导致一条文本描述很难去和特定角度的图片信息做匹配。本文主要就是为了解决上述问题。  
+        ![](./images/CAMERA/1.png)  
+    - ### Method  
+        ![](./images/CAMERA/2.png)  
+        - #### Adaptive Gating Self-Attention (AGSA)  
+            *The AGSA module is to filter the noisy or meaningless information and then enhance the representation of intra-modal context information.*  
+            ![](./images/CAMERA/3.png)  
+        - #### Multi-View Summarization  
+            *Understanding an image from diﬀerent views means that each region acquires diﬀerent attention from diﬀerent views.*  
+            本文使用**多尺度卷积**操作 (即设置不同的卷积核) 来作为实现。  
+        - #### Diversity Regularization  
+            为了确保图片在不同视角下得出的表征的多样性，本文额外引入了一个正则项，详见论文。  
